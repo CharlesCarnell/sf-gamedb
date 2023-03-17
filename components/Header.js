@@ -12,7 +12,7 @@ import {
 const Header = () => (
   <Container maxWidth="md">
     <Stack spacing={ 2 } direction="row">
-      <Link href="/"><span>Homepage</span></Link> 
+      <Link href="/"><span>Homerpage</span></Link> 
       <Link href="/"><span>Login</span></Link> 
       <Link href="/"><span>Register</span></Link> 
       <Search />
