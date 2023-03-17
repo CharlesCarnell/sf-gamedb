@@ -16,7 +16,6 @@ async function postForm(formValues) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       ...formValues,
-      user_id: 2,
     })
   })
 }
@@ -31,6 +30,7 @@ export default function ReviewForm() {
   return (
     <div>
       <form onSubmit={ handleSubmit(onSubmit) }>
+        <input { ...register('user_id', { required: true }) } type="number" defaultValue="1" />
         <input { ...register('rating_gameplay', { required: true }) } type="number" defaultValue="6" />
         <input { ...register('rating_replayability', { required: true }) } type="number" defaultValue="6" />
         <input { ...register('rating_visuals', { required: true }) } type="number" defaultValue="6" />
