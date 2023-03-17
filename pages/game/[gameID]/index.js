@@ -16,6 +16,7 @@ import {
 import {
   Header,
   Footer,
+  ReviewForm,
 } from '../../../components';
 
 
@@ -33,7 +34,6 @@ export default function Home() {
       fetch(`/api/games/slug/${gameID}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log('data', data);
           setData(data[0]);
           setLoading(false);
         })
@@ -93,6 +93,14 @@ export default function Home() {
                 <Typography variant="subtitle1" gutterBottom>
                   reviews
                 </Typography>
+              </div>
+              <div>
+                <Typography variant="subtitle1" gutterBottom>
+                  review form
+                </Typography>
+                <div>
+                  <ReviewForm />
+                </div>
               </div>
             </Grid2>
           </Grid2>

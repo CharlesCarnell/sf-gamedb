@@ -11,3 +11,5 @@ export { default as GameDetail } from './GameDetail';
 export { default as GameDetailMetadata } from './GameDetail/Metadata';
 export { default as GameDetailRecentReviews } from './GameDetail/RecentReviews';
 export { default as GameDetailReview } from './GameDetail/Review';
+
+export { default as ReviewForm } from './ReviewForm/ReviewForm';
