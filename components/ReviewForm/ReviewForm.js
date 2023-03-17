@@ -11,7 +11,7 @@ import {
 
 async function postForm(formValues) {
   console.log('postForm', formValues);
-  const post = await fetch('/api/ratings/1911', {
+  const post = await fetch('/api/ratings/game/1911', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -34,7 +34,7 @@ export default function ReviewForm() {
         <input { ...register('rating_replayability', { required: true }) } type="number" defaultValue="6" />
         <input { ...register('rating_visuals', { required: true }) } type="number" defaultValue="6" />
         <input { ...register('rating_story', { required: true }) } type="number" defaultValue="6" />
-        <input { ...register('rating_overall', { required: true }) } type="number" defaultValue="6" />
+        <input { ...register('rating_overall_generated', { required: true }) } type="number" defaultValue="6" />
         {/* { errors.exampleRequired && <span>This field is required</span> } */}
 
         <input type="submit" />
