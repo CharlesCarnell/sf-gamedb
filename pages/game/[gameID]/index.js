@@ -28,6 +28,9 @@ export default function Home() {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
+  const [reviewData, setReviewData] = useState(null);
+  const [isReviewDataLoading, setReviewDataLoading] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     if (gameID) {
@@ -39,6 +42,20 @@ export default function Home() {
         })
     }
   }, [router])
+
+  useEffect(() => {
+    setReviewDataLoading(true);
+    if (gameID) {
+      console.log('useEffect for getReviewData, data', data);
+      fetch(`/api/ratings/game/${data.id}`)
+        .then((res) => res.json())
+        .then((returnedData) => {
+          console.log('returnedData', returnedData);
+          setReviewData(returnedData);
+          setReviewDataLoading(false);
+        })
+    }
+  }, [data])
 
   if (isLoading) {
     return (
@@ -93,6 +110,32 @@ export default function Home() {
                 <Typography variant="subtitle1" gutterBottom>
                   reviews
                 </Typography>
+                <div>
+                  { reviewData.map((review, i) => {
+                    return (
+                      <div>
+                        <div>
+                          Author: { review.user.display_name }
+                        </div>
+                        <div>
+                          Gameplay: { review.rating_gameplay }
+                        </div>
+                        <div>
+                          Replayability: { review.rating_gameplay }
+                        </div>
+                        <div>
+                          Visuals: { review.rating_visuals }
+                        </div>
+                        <div>
+                          Story: { review.rating_story }
+                        </div>
+                        <div>
+                          Overall: { review.rating_overall_generated }
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
               <div>
                 <Typography variant="subtitle1" gutterBottom>
