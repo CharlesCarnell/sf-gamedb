@@ -14,7 +14,7 @@ interface SequelizeConfig {
   password: string,
 }
 
-const sequelizeConfig : SequelizeConfig = {
+const sequelizeConfig: SequelizeConfig = {
   host: process.env.DB_HOST || '127.0.0.1',
   port: Number(process.env.DB_PORT) || 5432,
   database: process.env.DB_DATABASE || 'public',
@@ -79,6 +79,18 @@ export const initDB = async () => {
     });
   } catch (err) {
     console.error('error creating Game "path of exile"', err);
+  }
+
+  try {
+    await Game.findOrCreate({
+      where: {
+        name: "Valorant",
+        game_id: 126459,
+        slug: 'valorant'
+      }
+    });
+  } catch (err) {
+    console.error('error creating Game "valorant"', err);
   }
 
   try {

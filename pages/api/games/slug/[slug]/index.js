@@ -53,7 +53,7 @@ export default async function handler(req, res) {
         'rating_count',
         // 'platforms',
       ])
-      .limit(5)
+      .limit(1)
       .sort('first_release_date', 'desc')
       // .search('Sonic')
       .where([

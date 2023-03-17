@@ -6,14 +6,15 @@ import {
   User
 } from "@server/models";
 
-async function get(req: NextApiRequest, res: NextApiResponse) {
-  if ( req.query.game_id ) {
-    const rating = await RatingRepository.findAll({
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+
+  if (req.query.game_id) {
+    const rating = await RatingRepository.findOne({
       where: { game_id: req.query.game_id },
       include: [Game, User]
     });
-    
-    if ( rating === null ) {
+
+    if (rating === null) {
       return res.status(400).json({ error: 'No records found with provided Game ID' })
     }
 
