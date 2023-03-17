@@ -57,7 +57,7 @@ export default function Search() {
           value={ value }
           onChange={ (e, newValue) => {
             setValue(newValue);
-            if ( newValue.slug ) router.push(`/game/${newValue.slug}`);
+            if ( newValue?.slug ) router.push(`/game/${newValue.slug}`);
           }}
           inputValue={ inputValue }
           onInputChange={ (e, newInputValue) => {

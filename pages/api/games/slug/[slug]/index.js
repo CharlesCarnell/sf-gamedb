@@ -1,4 +1,5 @@
 import apicalypse from 'apicalypse';
+import { GameRepository } from "@server/repositories";
 
 const apicalypseConfig = {
   headers: {
@@ -10,6 +11,16 @@ const apicalypseConfig = {
   timeout: '10000',
   queryMethod: 'body',
 };
+
+async function recordGameToDB(gameToRecord) {
+  return await GameRepository.findOrCreate({
+    where: {
+      name: gameToRecord.name,
+      slug: gameToRecord.slug,
+      game_id: gameToRecord.id,
+    }
+  });
+}
 
 export default async function handler(req, res) {
   if ( req.query.slug ) {
@@ -48,8 +59,9 @@ export default async function handler(req, res) {
         `slug = "${req.query.slug}"*`
       ])
       .request('https://api.igdb.com/v4/games');
-    res.status(200).json({ ...response.data })
+    await recordGameToDB(response.data[0]);
+    return res.status(200).json({ ...response.data })
   } else {
-    res.status(400).json({ error: 'Game ID must be supplied' })
+    return res.status(400).json({ error: 'Game ID must be supplied' })
   }
 }

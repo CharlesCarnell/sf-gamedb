@@ -11,11 +11,12 @@ import { BaseModel } from "./BaseModel";
   tableName: "game",
 })
 export class Game extends BaseModel {
+
+  @Column({ type: DataType.INTEGER, allowNull: false, primaryKey: true })
+  public game_id!: string;
+
   @Column({ type: DataType.STRING, allowNull: false })
   public name!: string;
-
-  @Column({ type: DataType.INTEGER, allowNull: false })
-  public game_id!: string;
 
   @Column({ type: DataType.STRING, allowNull: false })
   public slug!: string;

@@ -80,7 +80,7 @@ export const initDB = async () => {
   try {
     await Rating.findOrCreate({
       where: {
-        game_id: 1,
+        game_id: 1911,
         user_id: 1,
         rating_gameplay: 9,
         rating_replayability: 9,
@@ -96,7 +96,7 @@ export const initDB = async () => {
   try {
     await Rating.findOrCreate({
       where: {
-        game_id: 1,
+        game_id: 1911,
         user_id: 2,
         rating_gameplay: 8,
         rating_replayability: 8,
