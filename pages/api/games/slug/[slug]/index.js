@@ -3,7 +3,7 @@ import apicalypse from 'apicalypse';
 const apicalypseConfig = {
   headers: {
     'Client-ID': process.env.IGDB_CLIENT_ID,
-    'Authorization': process.env.IGDB_BEARER,
+    'Authorization': `Bearer ${process.env.IGDB_BEARER}`,
   },
   method: 'post',
   responseType: 'json',
