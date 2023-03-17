@@ -20,4 +20,7 @@ export class Game extends BaseModel {
 
   @Column({ type: DataType.STRING, allowNull: false })
   public slug!: string;
+
+  @Column({ type: DataType.DATE, allowNull: true })
+  public first_release_date!: string;
 }
