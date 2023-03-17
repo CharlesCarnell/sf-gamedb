@@ -13,11 +13,14 @@ const apicalypseConfig = {
 };
 
 async function recordGameToDB(gameToRecord) {
+  const first_release_date = new Date(0);
+  first_release_date.setUTCSeconds(gameToRecord.first_release_date);
   return await GameRepository.findOrCreate({
     where: {
       name: gameToRecord.name,
       slug: gameToRecord.slug,
       game_id: gameToRecord.id,
+      first_release_date: first_release_date.toISOString(),
     }
   });
 }

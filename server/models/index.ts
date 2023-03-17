@@ -58,7 +58,8 @@ export const initDB = async () => {
       where: {
         name: "Path of Exile",
         game_id: 1911,
-        slug: 'path-of-exile'
+        slug: 'path-of-exile',
+        first_release_date: '2013-10-23 00:00:00+00',
       }
     });
   } catch (err) {
@@ -70,7 +71,8 @@ export const initDB = async () => {
       where: {
         name: "World of Warcraft",
         game_id: 123,
-        slug: 'world-of-warcraft'
+        slug: 'world-of-warcraft',
+        first_release_date: '2004-11-23 00:00:00+00',
       }
     });
   } catch (err) {
