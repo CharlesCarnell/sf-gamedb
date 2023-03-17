@@ -18,6 +18,7 @@ async function recordGameToDB(gameToRecord) {
       name: gameToRecord.name,
       slug: gameToRecord.slug,
       game_id: gameToRecord.id,
+      first_release_date: gameToRecord.first_release_date,
     }
   });
 }
