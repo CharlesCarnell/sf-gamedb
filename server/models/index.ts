@@ -60,6 +60,7 @@ export const initDB = async () => {
         game_id: 1911,
         slug: 'path-of-exile',
         first_release_date: '2013-10-23 00:00:00+00',
+        cover_image: '//images.igdb.com/igdb/image/upload/t_cover_big/co1n6w.png',
       }
     });
   } catch (err) {
@@ -73,6 +74,7 @@ export const initDB = async () => {
         game_id: 123,
         slug: 'world-of-warcraft',
         first_release_date: '2004-11-23 00:00:00+00',
+        cover_image: '//images.igdb.com/igdb/image/upload/t_cover_big/co2l7z.png',
       }
     });
   } catch (err) {
