@@ -15,7 +15,8 @@ async function postForm(formValues) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      ...formValues
+      ...formValues,
+      user_id: 2,
     })
   })
 }

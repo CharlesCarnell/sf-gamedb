@@ -30,12 +30,13 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function post(req: NextApiRequest, res: NextApiResponse) {
-  if ( req.query.game_id ) {    
+
+  if ( req.query.game_id && req.body.user_id ) {    
     const findRating = await RatingRepository.findOne({
       where: {
         game_id: req.query.game_id,
-        user_id: 2
-      }
+        user_id: req.body.user_id,
+      },
     });
 
     let status = null;
@@ -44,16 +45,14 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
       await RatingRepository.create({
         ...req.body,
         game_id: req.query.game_id,
-        user_id: 2
       });
       status = 'created';
     } else {
       await RatingRepository.update({ ...req.body }, {
         where: {
           game_id: req.query.game_id,
-          user_id: 2,
-        },
-        returning: true,
+          user_id: req.body.user_id,
+        }
       });
       status = 'updated';
     }
@@ -61,7 +60,6 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
     const latestRecord = await RatingRepository.findOne({
       where: {
         game_id: req.query.game_id,
-        user_id: 2
       }
     });
     if ( latestRecord !== null ){
