@@ -6,34 +6,18 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import { styled } from '@mui/material/styles';
 import Grid2 from '@mui/material/Unstable_Grid2';
 
 import {
   Container,
-  Paper,
   Typography,
 } from '@mui/material';
 
 import {
   Header,
   Footer,
-  Search,
   GamesList,
-  GamesListItem,
-  GameDetail,
-  GameDetailMetadata,
-  GameDetailRecentReviews,
-  GameDetailReview
 } from '../components';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 export default function Home() {
   return (
