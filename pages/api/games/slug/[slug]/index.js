@@ -21,6 +21,7 @@ async function recordGameToDB(gameToRecord) {
       slug: gameToRecord.slug,
       game_id: gameToRecord.id,
       first_release_date: first_release_date.toISOString(),
+      cover_image: gameToRecord?.cover?.url,
     }
   });
 }

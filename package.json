@@ -23,6 +23,7 @@
     "pg-hstore": "^2.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.6",
     "sequelize": "^6.29.3",
     "sequelize-typescript": "^2.1.5",
     "ts-node": "^10.9.1",
