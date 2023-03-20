@@ -7,7 +7,6 @@ import {
 import { BaseModel } from "./BaseModel";
 
 @Table({
-  timestamps: false,
   tableName: "user",
 })
 export class User extends BaseModel {

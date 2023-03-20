@@ -9,7 +9,6 @@ import { Game } from "./Game";
 import { Rating } from "./Rating";
 
 @Table({
-  timestamps: false,
   tableName: "game_rating",
 })
 export class GameRating extends BaseModel {
