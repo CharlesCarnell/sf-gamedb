@@ -28,7 +28,7 @@ export default function Home() {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
-  const [reviewData, setReviewData] = useState(null);
+  const [reviewData, setReviewData] = useState([]);
   const [isReviewDataLoading, setReviewDataLoading] = useState(false);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function Home() {
       fetch(`/api/games/slug/${gameID}`)
         .then((res) => res.json())
         .then((data) => {
-          setData(data[0]);
+          setData(data);
           setLoading(false);
         })
     }
@@ -46,14 +46,14 @@ export default function Home() {
   useEffect(() => {
     setReviewDataLoading(true);
     if (gameID) {
-      console.log('useEffect for getReviewData, data', data);
-      fetch(`/api/ratings/game/${data.id}`)
-        .then((res) => res.json())
-        .then((returnedData) => {
-          console.log('returnedData', returnedData);
-          setReviewData(returnedData);
-          setReviewDataLoading(false);
-        })
+      // console.log('useEffect for getReviewData, data', data);
+      // fetch(`/api/ratings/game/${data.id}`)
+      //   .then((res) => res.json())
+      //   .then((returnedData) => {
+      //     console.log('returnedData', returnedData);
+      //     setReviewData(returnedData);
+      //     setReviewDataLoading(false);
+      //   })
     }
   }, [data])
 
@@ -111,7 +111,7 @@ export default function Home() {
                   reviews
                 </Typography>
                 <div>
-                  { reviewData.map((review, i) => {
+                  { data?.ratings?.map( (review, i) => {
                     return (
                       <div>
                         <div>

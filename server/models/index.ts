@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 
 import { Game } from "../definitions/Game";
+import { GameRating } from "../definitions/GameRating";
 import { Rating } from "../definitions/Rating";
 import { User } from "../definitions/User";
 
@@ -28,9 +29,9 @@ const sequelize = new Sequelize({
 });
 
 
-sequelize.addModels([Game, Rating, User]);
+sequelize.addModels([Game, Rating, GameRating, User]);
 
-export { Game, Rating, User };
+export { Game, GameRating, Rating, User };
 
 export const initDB = async () => {
   console.log('--------------- initDB() ----------------')
@@ -54,15 +55,37 @@ export const initDB = async () => {
   }
 
   try {
-    await Game.findOrCreate({
-      where: {
-        name: "Path of Exile",
-        game_id: 1911,
-        slug: 'path-of-exile',
-        first_release_date: '2013-10-23 00:00:00+00',
-        cover_image: '//images.igdb.com/igdb/image/upload/t_cover_big/co1n6w.png',
-      }
+    await Game.create({
+      name: "Path of Exile",
+      game_id: 1911,
+      slug: 'path-of-exile',
+      first_release_date: '2013-10-23 00:00:00+00',
+      cover_image: '//images.igdb.com/igdb/image/upload/t_cover_big/co1n6w.png',
+      ratings: [
+        {
+          game_id: 1911,
+          user_id: 1,
+          rating_gameplay: 1,
+          rating_replayability: 1,
+          rating_visuals: 2,
+          rating_story: 1,
+          rating_overall_generated: 1,
+        },
+        {
+          game_id: 1911,
+          user_id: 2,
+          rating_gameplay: 3,
+          rating_replayability: 4,
+          rating_visuals: 4,
+          rating_story: 3,
+          rating_overall_generated: 3,
+        },
+      ]
+    },
+    {
+      include: [{model: Rating, as: 'ratings' }]
     });
+
   } catch (err) {
     console.error('error creating Game "path of exile"', err);
   }
@@ -81,35 +104,35 @@ export const initDB = async () => {
     console.error('error creating Game "path of exile"', err);
   }
 
-  try {
-    await Rating.findOrCreate({
-      where: {
-        game_id: 1911,
-        user_id: 1,
-        rating_gameplay: 9,
-        rating_replayability: 9,
-        rating_visuals: 7,
-        rating_story: 7,
-        rating_overall_generated: 8,
-      },
-    });
-  } catch (err) {
-    console.error('error creating Rating "Path of Exile by LiquidFlux"', err);
-  }
+  // try {
+  //   await Rating.findOrCreate({
+  //     where: {
+  //       game_id: 1911,
+  //       user_id: 1,
+  //       rating_gameplay: 9,
+  //       rating_replayability: 9,
+  //       rating_visuals: 7,
+  //       rating_story: 7,
+  //       rating_overall_generated: 8,
+  //     },
+  //   });
+  // } catch (err) {
+  //   console.error('error creating Rating "Path of Exile by LiquidFlux"', err);
+  // }
 
-  try {
-    await Rating.findOrCreate({
-      where: {
-        game_id: 1911,
-        user_id: 2,
-        rating_gameplay: 8,
-        rating_replayability: 8,
-        rating_visuals: 6,
-        rating_story: 6,
-        rating_overall_generated: 7,
-      },
-    });
-  } catch (err) {
-    console.error('error creating Rating "Path of Exile by LiquidFlux"', err);
-  }
+  // try {
+  //   await Rating.findOrCreate({
+  //     where: {
+  //       game_id: 1911,
+  //       user_id: 2,
+  //       rating_gameplay: 8,
+  //       rating_replayability: 8,
+  //       rating_visuals: 6,
+  //       rating_story: 6,
+  //       rating_overall_generated: 7,
+  //     },
+  //   });
+  // } catch (err) {
+  //   console.error('error creating Rating "Path of Exile by LiquidFlux"', err);
+  // }
 };

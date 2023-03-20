@@ -2,12 +2,12 @@ import {
   Table,
   Column,
   DataType,
-  // HasMany,
-  // ForeignKey,
+  BelongsToMany,
 } from "sequelize-typescript";
 
 import { BaseModel } from "./BaseModel";
-// import { Rating } from "./Rating";
+import { GameRating } from "./GameRating";
+import { Rating } from "./Rating";
 
 @Table({
   timestamps: false,
@@ -29,17 +29,7 @@ export class Game extends BaseModel {
 
   @Column({ type: DataType.DATE, allowNull: true })
   public first_release_date!: string;
-
-
-  /* Associations */
-  // Rating
-  // @HasMany(() => Rating, "game_id")
-  // ratings: Rating[];
-  // public rating!: Rating;
-
-
-  // @ForeignKey(() => Rating)
-  // @Column({ type: DataType.INTEGER, allowNull: false })
-  // public game_id!: string;
-  // End User
+  
+  @BelongsToMany(() => Rating, () => GameRating)
+  ratings?: Rating[];
 }

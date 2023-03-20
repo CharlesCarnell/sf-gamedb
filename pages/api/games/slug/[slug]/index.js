@@ -1,5 +1,14 @@
 import apicalypse from 'apicalypse';
-import { GameRepository } from "@server/repositories";
+
+import {
+  GameRepository,
+  GameRatingRepository,
+  RatingRepository,
+} from "@server/repositories";
+
+import {
+  User
+} from "@server/models";
 
 const apicalypseConfig = {
   headers: {
@@ -17,12 +26,26 @@ async function recordGameToDB(gameToRecord) {
   first_release_date.setUTCSeconds(gameToRecord.first_release_date);
   return await GameRepository.findOrCreate({
     where: {
-      name: gameToRecord.name,
-      slug: gameToRecord.slug,
       game_id: gameToRecord.id,
+    },
+    defaults: {
       first_release_date: first_release_date.toISOString(),
       cover_image: gameToRecord?.cover?.url,
+      name: gameToRecord.name,
+      slug: gameToRecord.slug,
     }
+  });
+}
+
+async function returnReviewsByGameID(gameID) {
+  const game = await GameRepository.findOne({
+    where: {
+      game_id: gameID
+    }
+  });
+
+  return await game.getRatings({
+    include: [User]
   });
 }
 
@@ -64,7 +87,10 @@ export default async function handler(req, res) {
       ])
       .request('https://api.igdb.com/v4/games');
     await recordGameToDB(response.data[0]);
-    return res.status(200).json({ ...response.data })
+    return res.status(200).json({ 
+      ...response.data[0],
+      ratings: await returnReviewsByGameID(response.data[0].id),
+     })
   } else {
     return res.status(400).json({ error: 'Game ID must be supplied' })
   }
