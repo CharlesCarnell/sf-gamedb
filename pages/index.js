@@ -1,6 +1,9 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router';
+
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -20,6 +23,22 @@ import {
 } from '../components';
 
 export default function Home() {
+
+  const router = useRouter();
+  
+  const [data, setData] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`/api/games?reviews=true`)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      })
+  }, [router])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -33,7 +52,7 @@ export default function Home() {
             Sickfrags GameDB
           </Typography>
           <Grid2 container spacing={ 2 }>
-            <GamesList />
+            <GamesList data={ data } />
           </Grid2>
           <br />
         </main>
