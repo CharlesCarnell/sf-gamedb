@@ -1,13 +1,15 @@
 import apicalypse from 'apicalypse';
 
+import { Sequelize } from "sequelize-typescript";
+
 import {
   GameRepository,
-  GameRatingRepository,
   RatingRepository,
 } from "@server/repositories";
 
 import {
-  User
+  Rating,
+  User,
 } from "@server/models";
 
 const apicalypseConfig = {
@@ -47,6 +49,32 @@ async function returnReviewsByGameID(gameID) {
   return await game.getRatings({
     include: [User]
   });
+}
+
+async function returnAverageRatingsByGameID(gameID) {
+  const rating = await RatingRepository.findAll({
+    where: {
+      game_id: gameID
+    },
+    attributes: [
+      [Sequelize.fn('AVG', Sequelize.cast(Sequelize.col('rating_overall_generated'), 'integer')), 'average_rating']
+    ],
+    raw: true,
+  });
+
+  const averageRating = parseFloat(rating[0].average_rating);
+
+  return parseFloat(averageRating);
+}
+
+async function returnCountOfRatingsByGameID(gameID) {
+  const ratingCount = await RatingRepository.count({
+    where: {
+      game_id: gameID
+    },
+  });
+
+  return ratingCount;
 }
 
 export default async function handler(req, res) {
@@ -89,7 +117,11 @@ export default async function handler(req, res) {
     await recordGameToDB(response.data[0]);
     return res.status(200).json({ 
       ...response.data[0],
-      ratings: await returnReviewsByGameID(response.data[0].id),
+      reviews: await returnReviewsByGameID(response.data[0].id),
+      ratings: {
+        average: await returnAverageRatingsByGameID(response.data[0].id),
+        count: await returnCountOfRatingsByGameID(response.data[0].id),
+      }
      })
   } else {
     return res.status(400).json({ error: 'Game ID must be supplied' })

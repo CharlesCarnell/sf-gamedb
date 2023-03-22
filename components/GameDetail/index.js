@@ -25,7 +25,15 @@ export default function GameDetail({ data }) {
             </Typography>
           </div>
           <div style={{ float: 'right' }}>
-            IGDB Rating - { data?.rating }
+            <div>
+              IGDB Rating - { data?.rating }
+            </div>
+            <div>
+              SFGDB Rating - { data?.ratings.average }
+            </div>
+            <div>
+              SFGDB Rating Count - { data?.ratings.count }
+            </div>
           </div>
         </Grid2>
         <Grid2 xs={ 4 }>
@@ -46,7 +54,7 @@ export default function GameDetail({ data }) {
             <Typography variant="subtitle1" gutterBottom>
               reviews
             </Typography>
-              <RecentReviews reviews={ data.ratings } />
+              <RecentReviews reviews={ data.reviews } />
           </div>
           <div>
             <Typography variant="subtitle1" gutterBottom>
