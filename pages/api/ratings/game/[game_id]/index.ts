@@ -1,9 +1,16 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { RatingRepository } from "@server/repositories";
+import {
+  NextApiRequest,
+  NextApiResponse,
+} from "next";
+
+import {
+  GameRepository,
+  RatingRepository,
+} from "@server/repositories";
 import {
   Game,
   Rating,
-  User
+  User,
 } from "@server/models";
 
 async function get(req: NextApiRequest, res: NextApiResponse) {
@@ -31,43 +38,52 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
 
 async function post(req: NextApiRequest, res: NextApiResponse) {
 
-  if ( req.query.game_id && req.body.user_id ) {    
-    const findRating = await RatingRepository.findOne({
+  if ( req.query.game_id && req.body.user_id ) {  
+    const game = await GameRepository.findOne({
       where: {
-        game_id: req.query.game_id,
-        user_id: req.body.user_id,
+        game_id: req.query.game_id
       },
     });
 
-    let status = null;
-    // If there's no existing rating for this game from this user
-    if ( findRating === null ) {
-      await RatingRepository.create({
+    console.log('game', req.query.game_id, game);
+
+    const existingRating = (await game.getRatings({
+      where: {
+        user_id: Number(req.body.user_id),
+      }
+    }))[0];
+
+    // If a rating for this game & user exists, update it via its ID
+    if ( existingRating !== undefined ) {
+      console.log(`Updating an existing rating for ${req.query.game_id} by ${req.body.user_id}`);
+      const updatedRating = await Rating.update({
+        ...req.body,
+      }, {
+        where: {
+          id: existingRating.id
+        }
+      });
+
+      return res.status(200).json({
+        ...updatedRating,
+        status: `Updated an existing rating for ${req.query.game_id} by ${req.body.user_id}`,
+      });
+    } else {
+
+      // Else create a new rating record for this game & user combination
+      console.log(`Creating a new rating for ${req.query.game_id} by ${req.body.user_id}`);
+      const newRating = await Rating.create({
         ...req.body,
         game_id: req.query.game_id,
       });
-      status = 'created';
-    } else {
-      await RatingRepository.update({ ...req.body }, {
-        where: {
-          game_id: req.query.game_id,
-          user_id: req.body.user_id,
-        }
-      });
-      status = 'updated';
-    }
+      // const newSetRating = await game.setRatings([newRating]);
+      // console.log('newSetRating', newSetRating);
 
-    const latestRecord = await RatingRepository.findOne({
-      where: {
-        game_id: req.query.game_id,
-      }
-    });
-    if ( latestRecord !== null ){
-      return res.status(200).json({ ...latestRecord.dataValues, status });
+      return res.status(200).json({
+        ...newRating?.dataValues,
+        status: `Created a new rating for ${req.query.game_id} by ${req.body.user_id}`
+      });
     }
-    return res.status(400).json({ error: 'An error has occured whilst trying to create or update your rating' });
-  } else {
-    return res.status(400).json({ error: 'Game ID must be supplied' })
   }
 }
 

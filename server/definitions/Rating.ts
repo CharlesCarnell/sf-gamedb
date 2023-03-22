@@ -4,12 +4,11 @@ import {
   DataType,
   BelongsTo,
   ForeignKey,
-  BelongsToMany,
 } from "sequelize-typescript";
 
 import { BaseModel } from "./BaseModel";
 import { Game } from "./Game";
-import { GameRating } from "./GameRating";
+// import { GameRating } from "./GameRating";
 import { User } from "./User";
 
 @Table({
@@ -17,22 +16,17 @@ import { User } from "./User";
 })
 export class Rating extends BaseModel {
 
-  /* Associantions */
-  // User
+  @BelongsTo(() => Game)
+  public game!: Game[];
+
+  @ForeignKey(() => Game)
+  public game_id!: number
+
   @BelongsTo(() => User)
   public user!: User;
 
   @ForeignKey(() => User)
-  @Column({ type: DataType.INTEGER, allowNull: false })
-  public user_id!: number;
-  // End User
-
-  
-  // Game
-  @BelongsToMany(() => Game, () => GameRating)
-  cast?: Game[];
-  // End User
-
+  public user_id!: number
 
   @Column({ type: DataType.INTEGER, allowNull: false })
   public rating_gameplay!: string;

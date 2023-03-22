@@ -2,11 +2,11 @@ import {
   Table,
   Column,
   DataType,
-  BelongsToMany,
+  HasMany,
 } from "sequelize-typescript";
 
 import { BaseModel } from "./BaseModel";
-import { GameRating } from "./GameRating";
+// import { GameRating } from "./GameRating";
 import { Rating } from "./Rating";
 
 @Table({
@@ -14,6 +14,9 @@ import { Rating } from "./Rating";
   tableName: "game",
 })
 export class Game extends BaseModel {
+  
+  @HasMany(() => Rating, 'game_id')
+  ratings?: Rating[];
 
   @Column({ type: DataType.INTEGER, allowNull: false, primaryKey: true })
   public game_id!: string;
@@ -29,7 +32,4 @@ export class Game extends BaseModel {
 
   @Column({ type: DataType.DATE, allowNull: true })
   public first_release_date!: string;
-  
-  @BelongsToMany(() => Rating, () => GameRating)
-  ratings?: Rating[];
 }

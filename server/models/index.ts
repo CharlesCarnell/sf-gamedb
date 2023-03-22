@@ -1,7 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 
 import { Game } from "../definitions/Game";
-import { GameRating } from "../definitions/GameRating";
 import { Rating } from "../definitions/Rating";
 import { User } from "../definitions/User";
 
@@ -29,9 +28,9 @@ const sequelize = new Sequelize({
 });
 
 
-sequelize.addModels([Game, Rating, GameRating, User]);
+sequelize.addModels([Game, Rating, User]);
 
-export { Game, GameRating, Rating, User };
+export { Game, Rating, User };
 
 export const initDB = async () => {
   console.log('--------------- initDB() ----------------')
