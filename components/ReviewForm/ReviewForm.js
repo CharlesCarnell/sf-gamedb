@@ -31,12 +31,12 @@ export default function ReviewForm() {
   return (
     <div>
       <form onSubmit={ handleSubmit(onSubmit) }>
-        <input { ...register('user_id', { required: true }) } type="number" defaultValue="1" />
-        <input { ...register('rating_gameplay', { required: true }) } type="number" defaultValue="6" />
-        <input { ...register('rating_replayability', { required: true }) } type="number" defaultValue="6" />
-        <input { ...register('rating_visuals', { required: true }) } type="number" defaultValue="6" />
-        <input { ...register('rating_story', { required: true }) } type="number" defaultValue="6" />
-        <input { ...register('rating_overall_generated', { required: true }) } type="number" defaultValue="6" />
+        <input { ...register('user_id', { required: true }) } type="number" placeholder="User ID" />
+        <input { ...register('rating_gameplay', { required: true }) } type="number" placeholder="Gameplay" />
+        <input { ...register('rating_replayability', { required: true }) } type="number" placeholder="Replayability" />
+        <input { ...register('rating_visuals', { required: true }) } type="number" placeholder="Visuals" />
+        <input { ...register('rating_story', { required: true }) } type="number" placeholder="Story" />
+        {/* <input { ...register('rating_overall_generated', { required: true }) } type="number" defaultValue="6" /> */}
         {/* { errors.exampleRequired && <span>This field is required</span> } */}
 
         <input type="submit" />
