@@ -9,14 +9,12 @@ import {
 import {
   ReviewForm,
 } from '../../components';
+import CategoryRatings from './CategoryRatings';
 import RecentReviews from './RecentReviews';
 
 export default function GameDetail({ data }) {
   return (
     <div>
-      <Typography variant="h4" gutterBottom onClick={ () => console.log('data', data) }>
-        Sickfrags GameDB
-      </Typography>
       <Grid2 container spacing={ 2 }>
         <Grid2 xs={ 12 }>
           <div style={{ float: 'left' }}>
@@ -29,7 +27,7 @@ export default function GameDetail({ data }) {
               IGDB Rating - { data?.rating }
             </div>
             <div>
-              SFGDB Rating - { data?.ratings.average }
+              SFGDB Rating - { data?.ratings.average.overall }
             </div>
             <div>
               SFGDB Rating Count - { data?.ratings.count }
@@ -40,30 +38,25 @@ export default function GameDetail({ data }) {
           <img src={ data?.cover?.url.replace('thumb', '720p') } alt={ data?.name } style={{ width: '100%' }} />
         </Grid2>
         <Grid2 xs={ 8 }>
-          <div>
-            <Typography variant="body1" gutterBottom>
-              { data?.summary }
-            </Typography>
-          </div>
-          <div>
-            <Typography variant="subtitle1" gutterBottom>
-              category ratings
-            </Typography>
-          </div>
-          <div>
-            <Typography variant="subtitle1" gutterBottom>
-              reviews
-            </Typography>
+          <Grid2 container spacing={ 2 }>
+            <Grid2 xs={ 12 }>
+              <Typography variant="body1" gutterBottom>
+                { data?.summary }
+              </Typography>
+            </Grid2>
+            <Grid2 xs={ 12 }>
+              <CategoryRatings ratings={ data.ratings.average } />
+            </Grid2>
+            <Grid2 xs={ 12 }>
               <RecentReviews reviews={ data.reviews } />
-          </div>
-          <div>
-            <Typography variant="subtitle1" gutterBottom>
-              review form
-            </Typography>
-            <div>
+            </Grid2>
+            <Grid2 xs={ 12 }>
+              <Typography variant="subtitle1" gutterBottom>
+                Submit Review
+              </Typography>
               <ReviewForm />
-            </div>
-          </div>
+            </Grid2>
+          </Grid2>
         </Grid2>
       </Grid2>
       <br />

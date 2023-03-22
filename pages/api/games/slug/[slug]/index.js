@@ -57,14 +57,24 @@ async function returnAverageRatingsByGameID(gameID) {
       game_id: gameID
     },
     attributes: [
-      [Sequelize.fn('AVG', Sequelize.cast(Sequelize.col('rating_overall_generated'), 'integer')), 'average_rating']
+      [Sequelize.fn('AVG', Sequelize.cast(Sequelize.col('rating_overall_generated'), 'integer')), 'average_overall_rating'],
+      [Sequelize.fn('AVG', Sequelize.cast(Sequelize.col('rating_gameplay'), 'integer')), 'average_gameplay_rating'],
+      [Sequelize.fn('AVG', Sequelize.cast(Sequelize.col('rating_replayability'), 'integer')), 'average_replayability_rating'],
+      [Sequelize.fn('AVG', Sequelize.cast(Sequelize.col('rating_visuals'), 'integer')), 'average_visuals_rating'],
+      [Sequelize.fn('AVG', Sequelize.cast(Sequelize.col('rating_story'), 'integer')), 'average_story_rating'],
     ],
     raw: true,
   });
 
-  const averageRating = parseFloat(rating[0].average_rating);
+  const averageRatings = {
+    overall: parseFloat(rating[0].average_overall_rating),
+    gameplay: parseFloat(rating[0].average_gameplay_rating),
+    replayability: parseFloat(rating[0].average_replayability_rating),
+    visuals: parseFloat(rating[0].average_visuals_rating),
+    story: parseFloat(rating[0].average_story_rating),
+  };
 
-  return parseFloat(averageRating);
+  return averageRatings;
 }
 
 async function returnCountOfRatingsByGameID(gameID) {
