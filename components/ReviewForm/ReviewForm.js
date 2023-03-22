@@ -11,6 +11,7 @@ import {
 
 async function postForm(formValues) {
   console.log('postForm', formValues);
+  // TODO: replace hardcoded game ID
   const post = await fetch('/api/ratings/game/1911', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

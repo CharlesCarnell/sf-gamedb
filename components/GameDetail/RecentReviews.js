@@ -1,9 +1,13 @@
+import RecentReview from './RecentReview';
 
-
-const GameDetailRecentReviews = () => (
-  <div>
-    <span>GameDetailRecentReviews</span>
-  </div>
+const GameDetailRecentReviews = ({ reviews }) => (
+  <>
+    { reviews && reviews.length > 0 && reviews?.map( (review, i) => {
+      return (
+        <RecentReview review={ review } />
+      )
+    })}
+  </>
 );
 
 

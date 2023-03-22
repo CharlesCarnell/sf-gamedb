@@ -16,6 +16,7 @@ import {
 import {
   Header,
   Footer,
+  GameDetail,
   ReviewForm,
 } from '../../../components';
 
@@ -27,9 +28,6 @@ export default function Home() {
 
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
-
-  const [reviewData, setReviewData] = useState([]);
-  const [isReviewDataLoading, setReviewDataLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -43,23 +41,27 @@ export default function Home() {
     }
   }, [router])
 
-  useEffect(() => {
-    setReviewDataLoading(true);
-    if (gameID) {
-      // console.log('useEffect for getReviewData, data', data);
-      // fetch(`/api/ratings/game/${data.id}`)
-      //   .then((res) => res.json())
-      //   .then((returnedData) => {
-      //     console.log('returnedData', returnedData);
-      //     setReviewData(returnedData);
-      //     setReviewDataLoading(false);
-      //   })
-    }
-  }, [data])
-
   if (isLoading) {
     return (
-      <p>Loading</p>
+      <div>
+        <Head>
+          <title>SFGDB - Harry Potter</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Header />
+        <Container maxWidth="md">
+          <main>
+            <Grid2 container spacing={ 2 }>
+              <Grid2 xs={ 12 }>
+                <Typography variant="h5" gutterBottom>
+                  Loading game details..
+                </Typography>
+              </Grid2>
+            </Grid2>
+          </main>
+        </Container>
+        <Footer />
+      </div>
     );
   }
 
@@ -78,76 +80,7 @@ export default function Home() {
       <Header />
       <Container maxWidth="md">
         <main>
-          <Typography variant="h4" gutterBottom onClick={ () => console.log('data', data) }>
-            Sickfrags GameDB
-          </Typography>
-          <Grid2 container spacing={ 2 }>
-            <Grid2 xs={ 12 }>
-              <div style={{ float: 'left' }}>
-                <Typography variant="h5" gutterBottom>
-                  { data?.name }
-                </Typography>
-              </div>
-              <div style={{ float: 'right' }}>
-                IGDB Rating - { data?.rating }
-              </div>
-            </Grid2>
-            <Grid2 xs={ 4 }>
-              <img src={ data?.cover?.url.replace('thumb', '720p') } alt={ data?.name } style={{ width: '100%' }} />
-            </Grid2>
-            <Grid2 xs={ 8 }>
-              <div>
-                <Typography variant="body1" gutterBottom>
-                  { data?.summary }
-                </Typography>
-              </div>
-              <div>
-                <Typography variant="subtitle1" gutterBottom>
-                  category ratings
-                </Typography>
-              </div>
-              <div>
-                <Typography variant="subtitle1" gutterBottom>
-                  reviews
-                </Typography>
-                <div>
-                  { data?.ratings?.map( (review, i) => {
-                    return (
-                      <div>
-                        <div>
-                          Author: { review.user.display_name }
-                        </div>
-                        <div>
-                          Gameplay: { review.rating_gameplay }
-                        </div>
-                        <div>
-                          Replayability: { review.rating_gameplay }
-                        </div>
-                        <div>
-                          Visuals: { review.rating_visuals }
-                        </div>
-                        <div>
-                          Story: { review.rating_story }
-                        </div>
-                        <div>
-                          Overall: { review.rating_overall_generated }
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-              <div>
-                <Typography variant="subtitle1" gutterBottom>
-                  review form
-                </Typography>
-                <div>
-                  <ReviewForm />
-                </div>
-              </div>
-            </Grid2>
-          </Grid2>
-          <br />
+          <GameDetail data={ data } />
         </main>
       </Container>
       <Footer />
