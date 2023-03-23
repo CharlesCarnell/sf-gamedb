@@ -29,7 +29,9 @@ const GamesListItem = ({ cover_image, name, slug, ratings }) => (
         { name }
       </Typography>
       <div>
-        <Rating value={ ratings[0].rating_gameplay } size="small" />
+        { ratings && ratings[0] && ratings[0].rating_gameplay &&
+          <Rating value={ ratings[0].rating_gameplay } size="small" />
+        }
       </div>
     </CardContent>
     <CardActions>
