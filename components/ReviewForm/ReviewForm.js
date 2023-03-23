@@ -1,13 +1,13 @@
 
 
-import {
-  useState,
-  // useEffect
-} from 'react';
 
 import {
   useForm,
 } from 'react-hook-form';
+
+import Grid2 from '@mui/material/Unstable_Grid2';
+
+import RatingInput from './RatingInput';
 
 async function postForm(formValues) {
   console.log('postForm', formValues);
@@ -21,26 +21,98 @@ async function postForm(formValues) {
   })
 }
 
-export default function ReviewForm() {
+// const ratingOptions = [
+//   {
+//     id: '1',
+//     label: '1',
+//     value: '1',
+//   },
+//   {
+//     id: '2',
+//     label: '2',
+//     value: '2',
+//   },
+//   {
+//     id: '3',
+//     label: '3',
+//     value: '3',
+//   },
+//   {
+//     id: '4',
+//     label: '4',
+//     value: '4',
+//   },
+//   {
+//     id: '5',
+//     label: '5',
+//     value: '5',
+//   },
+// ];
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+const ratingOptions = Array.from({ length: 10 }, (v, k) => {
+  return {
+    id: String(k + 1),
+    label: String(k + 1),
+    value: String(k + 1)
+  }}
+); 
+
+export default function ReviewForm() {
+  const { control, handleSubmit } = useForm({
+    validateCriteriaMode: "all",
+    reValidateMode: "onChange",
+    mode: "onChange"
+  });
+
   const onSubmit = data => postForm(data);
 
-  // console.log(watch('example'));
-
   return (
-    <div>
-      <form onSubmit={ handleSubmit(onSubmit) }>
-        <input { ...register('user_id', { required: true }) } type="number" placeholder="User ID" />
-        <input { ...register('rating_gameplay', { required: true }) } type="number" placeholder="Gameplay" />
-        <input { ...register('rating_replayability', { required: true }) } type="number" placeholder="Replayability" />
-        <input { ...register('rating_visuals', { required: true }) } type="number" placeholder="Visuals" />
-        <input { ...register('rating_story', { required: true }) } type="number" placeholder="Story" />
-        {/* <input { ...register('rating_overall_generated', { required: true }) } type="number" defaultValue="6" /> */}
-        {/* { errors.exampleRequired && <span>This field is required</span> } */}
-
-        <input type="submit" />
-      </form>
-    </div>
+    <form onSubmit={ handleSubmit(onSubmit) }>
+      <Grid2 container spacing={ 2 }>
+        <Grid2 xs={ 12 }>
+          <RatingInput
+            control={ control }
+            name="user_id"
+            label="User ID"
+            options={ ratingOptions }
+          />
+        </Grid2>
+        <Grid2 xs={ 12 } md={ 12 }>
+          <RatingInput
+            control={ control }
+            name="rating_gameplay"
+            label="Gameplay"
+            options={ ratingOptions }
+          />
+        </Grid2>
+        <Grid2 xs={ 12 } md={ 12 }>
+          <RatingInput
+            control={ control }
+            name="rating_replayability"
+            label="Replayability"
+            options={ ratingOptions }
+          />
+        </Grid2>
+        <Grid2 xs={ 12 } md={ 12 }>
+          <RatingInput
+            control={ control }
+            name="rating_visuals"
+            label="Visuals"
+            options={ ratingOptions }
+          />
+        </Grid2>
+        <Grid2 xs={ 12 } md={ 12 }>
+          <RatingInput
+            control={ control }
+            name="rating_story"
+            label="Story"
+            options={ ratingOptions }
+          />
+        </Grid2>
+        <Grid2 xs={ 12 } md={ 12 }>
+          <input type="submit" />
+        </Grid2>
+      </Grid2>
+    </form>
   )
 }

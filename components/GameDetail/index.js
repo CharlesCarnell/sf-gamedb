@@ -11,6 +11,7 @@ import {
 } from '../../components';
 import CategoryRatings from './CategoryRatings';
 import RecentReviews from './RecentReviews';
+import Rating from './Rating';
 
 export default function GameDetail({ data }) {
   return (
@@ -23,7 +24,8 @@ export default function GameDetail({ data }) {
             </Typography>
           </div>
           <div style={{ float: 'right' }}>
-            <div>
+            <Rating value={ data?.ratings.average.overall } size="large" />
+            {/* <div>
               IGDB Rating - { data?.rating }
             </div>
             <div>
@@ -31,7 +33,7 @@ export default function GameDetail({ data }) {
             </div>
             <div>
               SFGDB Rating Count - { data?.ratings.count }
-            </div>
+            </div> */}
           </div>
         </Grid2>
         <Grid2 xs={ 4 }>
