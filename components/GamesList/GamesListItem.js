@@ -1,5 +1,5 @@
 
-
+import Rating from '../GameDetail/Rating'
 import Link from 'next/link';
 
 import {
@@ -15,7 +15,7 @@ import {
 // first_release_date.setUTCSeconds(gameToRecord.first_release_date);
 // first_release_date.toISOString();
 
-const GamesListItem = ({ cover_image, first_release_date, name, slug }) => (
+const GamesListItem = ({ cover_image, name, slug, ratings }) => (
   <Card sx={{ maxWidth: 345 }}>
     <Link href={ `game/${slug}` }>
       <CardMedia
@@ -28,9 +28,9 @@ const GamesListItem = ({ cover_image, first_release_date, name, slug }) => (
       <Typography gutterBottom variant="h5" component="div">
         { name }
       </Typography>
-      <Typography variant="body2" color="text.secondary">
-        { first_release_date }
-      </Typography>
+      <div>
+        <Rating value={ ratings[0].rating_gameplay } size="small" />
+      </div>
     </CardContent>
     <CardActions>
       <Button size="small">Share</Button>
