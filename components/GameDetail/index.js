@@ -56,7 +56,7 @@ export default function GameDetail({ data }) {
               <Typography variant="subtitle1" gutterBottom>
                 Submit Review
               </Typography>
-              <ReviewForm />
+              <ReviewForm gameID={ data.id } />
             </Grid2>
           </Grid2>
         </Grid2>

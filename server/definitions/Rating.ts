@@ -4,6 +4,7 @@ import {
   DataType,
   BelongsTo,
   ForeignKey,
+  // BeforeSave,
 } from "sequelize-typescript";
 
 import { BaseModel } from "./BaseModel";
@@ -43,17 +44,6 @@ export class Rating extends BaseModel {
   @Column({
     type: DataType.DOUBLE,
     allowNull: false,
-    set(this: Rating) {
-      const ratingValues = [];
-      ratingValues.push(
-        this.getDataValue('rating_gameplay'),
-        this.getDataValue('rating_replayability'),
-        this.getDataValue('rating_visuals'),
-        this.getDataValue('rating_story'),
-      );
-      const averageRating = (ratingValues.reduce((sum, a) => { return parseFloat(sum) + parseFloat(a) }, 0) / ( ratingValues.length || 1 ));
-      this.setDataValue('rating_overall_generated', averageRating)
-    }
   })
   public rating_overall_generated!: string;
 }

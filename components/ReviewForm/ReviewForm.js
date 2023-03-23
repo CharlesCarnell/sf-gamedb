@@ -1,6 +1,5 @@
 
 
-
 import {
   useForm,
 } from 'react-hook-form';
@@ -9,10 +8,8 @@ import Grid2 from '@mui/material/Unstable_Grid2';
 
 import RatingInput from './RatingInput';
 
-async function postForm(formValues) {
-  console.log('postForm', formValues);
-  // TODO: replace hardcoded game ID
-  const post = await fetch('/api/ratings/game/1911', {
+async function postForm(formValues, gameID = 1911) {
+  const post = await fetch(`/api/ratings/game/${gameID}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -20,34 +17,6 @@ async function postForm(formValues) {
     })
   })
 }
-
-// const ratingOptions = [
-//   {
-//     id: '1',
-//     label: '1',
-//     value: '1',
-//   },
-//   {
-//     id: '2',
-//     label: '2',
-//     value: '2',
-//   },
-//   {
-//     id: '3',
-//     label: '3',
-//     value: '3',
-//   },
-//   {
-//     id: '4',
-//     label: '4',
-//     value: '4',
-//   },
-//   {
-//     id: '5',
-//     label: '5',
-//     value: '5',
-//   },
-// ];
 
 const ratingOptions = Array.from({ length: 10 }, (v, k) => {
   return {
@@ -57,14 +26,14 @@ const ratingOptions = Array.from({ length: 10 }, (v, k) => {
   }}
 ); 
 
-export default function ReviewForm() {
+export default function ReviewForm({ gameID }) {
   const { control, handleSubmit } = useForm({
     validateCriteriaMode: "all",
     reValidateMode: "onChange",
     mode: "onChange"
   });
 
-  const onSubmit = data => postForm(data);
+  const onSubmit = data => postForm(data, gameID);
 
   return (
     <form onSubmit={ handleSubmit(onSubmit) }>

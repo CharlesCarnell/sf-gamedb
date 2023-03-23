@@ -55,9 +55,17 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
 
     // If a rating for this game & user exists, update it via its ID
     if ( existingRating !== undefined ) {
-      console.log(`Updating an existing rating for ${req.query.game_id} by ${req.body.user_id}`);
+      const ratingValues = [];
+      ratingValues.push(
+        req.body.rating_gameplay,
+        req.body.rating_replayability,
+        req.body.rating_visuals,
+        req.body.rating_story,
+      );
+      const averageRating = (ratingValues.reduce((sum, a) => { return parseFloat(sum) + parseFloat(a) }, 0) / ( ratingValues.length || 1 ));
       const updatedRating = await Rating.update({
         ...req.body,
+        rating_overall_generated: averageRating,
       }, {
         where: {
           id: existingRating.id
@@ -69,11 +77,19 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
         status: `Updated an existing rating for ${req.query.game_id} by ${req.body.user_id}`,
       });
     } else {
-
       // Else create a new rating record for this game & user combination
       console.log(`Creating a new rating for ${req.query.game_id} by ${req.body.user_id}`);
+      const ratingValues = [];
+      ratingValues.push(
+        req.body.rating_gameplay,
+        req.body.rating_replayability,
+        req.body.rating_visuals,
+        req.body.rating_story,
+      );
+      const averageRating = (ratingValues.reduce((sum, a) => { return parseFloat(sum) + parseFloat(a) }, 0) / (ratingValues.length || 1));
       const newRating = await Rating.create({
         ...req.body,
+        rating_overall_generated: averageRating,
         game_id: req.query.game_id,
       });
       // const newSetRating = await game.setRatings([newRating]);
