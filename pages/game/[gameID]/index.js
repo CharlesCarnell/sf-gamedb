@@ -45,7 +45,7 @@ export default function Home() {
     return (
       <div>
         <Head>
-          <title>SFGDB - Harry Potter</title>
+          <title>SFGDB </title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header />
@@ -74,7 +74,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>SFGDB - Harry Potter</title>
+        <title>SFGDB - {data.name}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
