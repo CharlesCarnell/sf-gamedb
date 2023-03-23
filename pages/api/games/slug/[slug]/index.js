@@ -124,7 +124,11 @@ export default async function handler(req, res) {
         `slug = "${req.query.slug}"*`
       ])
       .request('https://api.igdb.com/v4/games');
-    await recordGameToDB(response.data[0]);
+    if ( !response.data.length ) {
+      return res.status(200).json({
+        status: 'No games found from IGDB'
+      });
+    }
     return res.status(200).json({ 
       ...response.data[0],
       reviews: await returnReviewsByGameID(response.data[0].id),
