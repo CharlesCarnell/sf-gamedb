@@ -79,7 +79,7 @@ export default function Home() {
       </Head>
       <Header />
       <Container maxWidth="md">
-        <main>
+        <main style={ { marginBottom: '300px' } }>
           <GameDetail data={ data } />
         </main>
       </Container>

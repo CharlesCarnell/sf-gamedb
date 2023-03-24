@@ -66,11 +66,8 @@ export default function Search() {
           disablePortal
           options={ data }
           sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Search videogames" />}
+          renderInput={(params) => <TextField size="small" margin="normal" {...params} label="Search videogames" />}
         />
-        <Button variant="contained">
-          Search
-        </Button>
       </Stack>
     </div>
   );

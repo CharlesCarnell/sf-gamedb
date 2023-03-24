@@ -48,13 +48,9 @@ export default function Home() {
       <Header />
       <Container maxWidth="md">
         <main>
-          <Typography variant="h4" gutterBottom>
-            Sickfrags GameDB
-          </Typography>
           <Grid2 container spacing={ 2 }>
             <GamesList data={ data } />
           </Grid2>
-          <br />
         </main>
       </Container>
       <Footer />

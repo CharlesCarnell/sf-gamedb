@@ -11,7 +11,7 @@ import GamesListItem from '../../components/GamesList/GamesListItem';
 const GamesList = ({ data }) => (
   <>
     <Grid2 xs={ 12 }>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="overline" gutterBottom>
         Recently Reviewed
       </Typography>
     </Grid2>
