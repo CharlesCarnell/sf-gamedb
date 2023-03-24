@@ -46,6 +46,10 @@ async function returnReviewsByGameID(gameID) {
     }
   });
 
+  if ( !game ) {
+    return null;
+  }
+
   return await game.getRatings({
     include: [User]
   });
