@@ -1,3 +1,7 @@
+
+
+import { useSession, signIn, signOut } from "next-auth/react"
+
 import Link from 'next/link';
 
 import {
@@ -9,15 +13,29 @@ import {
   Search,
 } from '../components'
 
-const Header = () => (
-  <Container maxWidth="md">
-    <Stack spacing={ 2 } direction="row">
-      <Link href="/"><span>Homepage</span></Link> 
-      <Link href="/"><span>Login</span></Link> 
-      <Link href="/"><span>Register</span></Link> 
-      <Search />
-    </Stack>
-  </Container>
-);
+export default function Header() {
+  const { data: session } = useSession();
 
-export default Header;
+  return (
+    <Container maxWidth="md">
+      <Stack spacing={ 2 } direction="row">
+        <Link href="/">
+          <span>Homepage</span>
+        </Link>
+        { session ? 
+          <>
+            <span onClick={ () => console.log('session', session) }>Session Log</span>
+            <span onClick={ () => signOut() }>Logout</span>
+          </>
+          :
+          <>
+            <span onClick={ () => signIn() }>Login</span>
+            <span>Register</span>
+          </>
+        }
+        <Search />
+      </Stack>
+    </Container>
+  );
+};
+

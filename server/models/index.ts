@@ -1,10 +1,15 @@
-import { Sequelize } from "sequelize-typescript";
+import { 
+  Sequelize,
+  // DataType
+} from "sequelize-typescript";
+
+import DiscordProvider from 'next-auth/providers/discord';
+import SequelizeAdapter, {
+  models
+} from '@next-auth/sequelize-adapter';
 
 import { Game } from "../definitions/Game";
 import { Rating } from "../definitions/Rating";
-import { User } from "../definitions/User";
-
-// import config from "../config";
 
 interface SequelizeConfig {
   host: string,
@@ -27,30 +32,81 @@ const sequelize = new Sequelize({
   dialect: 'postgres',
 });
 
+const User = sequelize.define('user', {
+  ...models.User,
+});
 
-sequelize.addModels([Game, Rating, User]);
+const sequelizeAdapter = SequelizeAdapter(sequelize, {
+  models: {
+    // @ts-ignore
+    User: User,
+  }
+});
 
-export { Game, Rating, User };
+const authOptions = {
+  providers: [
+    DiscordProvider({
+      // @ts-ignore
+      clientId: process.env.DISCORD_CLIENT_ID,
+      // @ts-ignore
+      clientSecret: process.env.DISCORD_CLIENT_SECRET
+    }),
+  ],
+  adapter: sequelizeAdapter,
+}
+
+sequelize.addModels([Game, Rating]);
+
+User.hasMany(Rating, {
+  foreignKey: 'user_id'
+});
+Rating.belongsTo(User, {
+  foreignKey: 'user_id'
+});
+
+
+export { sequelize, authOptions, Game, Rating, User };
 
 export const initDB = async () => {
   console.log('--------------- initDB() ----------------')
   await sequelize.authenticate();
   await sequelize.sync({ alter: true });
 
+  // @ts-ignore
+  let userOne: any = null; 
+  // @ts-ignore
+  let userTwo: any = null;
+  // @ts-ignore
+  let userThree: any = null;
   try {
-    await User.findOrCreate({
-      where: { display_name: "LiquidFlux" },
-      // defaults: { name: "admin", email: "admin@example.com" },
+    userOne = await User.findOrCreate({
+      where: { email: "flux@sf.com" },
+      defaults: {
+        name: "LiquidFlux",
+      },
     });
   } catch (err) {
     console.error('error creating User "LiquidFlux"', err);
   }
   try {
-    await User.findOrCreate({
-      where: { display_name: "Akuze" },
+    userTwo = await User.findOrCreate({
+      where: { email: "akuze@sf.com" },
+      defaults: {
+        name: "Akuze",
+      },
     });
   } catch (err) {
     console.error('error creating User "Akuze"', err);
+  }
+  try {
+    userThree = await User.findOrCreate({
+      where: { email: "cam@sf.com" },
+      defaults: {
+        name: "Cam",
+      },
+    });
+  } catch (err) {
+    console.error('error creating User "Cam"', err);
   }
 
   try {
@@ -63,7 +119,7 @@ export const initDB = async () => {
       ratings: [
         {
           game_id: 1911,
-          user_id: 1,
+          user_id: userOne[0].id,
           rating_gameplay: 1,
           rating_replayability: 1,
           rating_visuals: 2,
@@ -72,7 +128,7 @@ export const initDB = async () => {
         },
         {
           game_id: 1911,
-          user_id: 2,
+          user_id: userTwo[0].id,
           rating_gameplay: 3,
           rating_replayability: 4,
           rating_visuals: 4,

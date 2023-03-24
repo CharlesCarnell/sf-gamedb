@@ -22,7 +22,7 @@ export default function GameDetailRecentReview({ review }){
           <Grid2 container spacing={ 2 }>
             <Grid2 xs={ 12 } md={ 6 }>
               <Typography variant="h6" gutterBottom>
-                { review.user.display_name }
+                { review.user.name }
               </Typography>
             </Grid2>
             <Grid2 xs={ 12 } md={ 6 }>

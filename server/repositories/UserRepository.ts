@@ -1,3 +1,3 @@
-import { User } from "../models";
+// import { User } from "../models";
 
-export class UserRepository extends User {};
+// export class UserRepository extends User { };
