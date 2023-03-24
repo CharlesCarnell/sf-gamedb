@@ -3,8 +3,12 @@
 import {
   useForm,
 } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
 
 import Grid2 from '@mui/material/Unstable_Grid2';
+import {
+  Alert
+} from '@mui/material';
 
 import RatingInput from './RatingInput';
 
@@ -27,6 +31,22 @@ const ratingOptions = Array.from({ length: 10 }, (v, k) => {
 ); 
 
 export default function ReviewForm({ gameID }) {
+  const { data: session } = useSession();
+
+  if (!session) {
+    return (
+      <>
+        <Grid2 container spacing={ 2 }>
+          <Grid2 xs={ 12 }>
+            <Alert severity="warning">
+              You need to be logged in to submit reviews!
+            </Alert>
+          </Grid2>
+        </Grid2>
+      </>
+    );
+  }
+
   const { control, handleSubmit } = useForm({
     validateCriteriaMode: "all",
     reValidateMode: "onChange",
