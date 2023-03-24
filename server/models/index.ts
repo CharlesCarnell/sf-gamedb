@@ -110,35 +110,38 @@ export const initDB = async () => {
   }
 
   try {
-    await Game.create({
-      name: "Path of Exile",
-      game_id: 1911,
-      slug: 'path-of-exile',
-      first_release_date: '2013-10-23 00:00:00+00',
-      cover_image: '//images.igdb.com/igdb/image/upload/t_cover_big/co1n6w.png',
-      ratings: [
-        {
-          game_id: 1911,
-          user_id: userOne[0].id,
-          rating_gameplay: 1,
-          rating_replayability: 1,
-          rating_visuals: 2,
-          rating_story: 1,
-          rating_overall_generated: 1,
-        },
-        {
-          game_id: 1911,
-          user_id: userTwo[0].id,
-          rating_gameplay: 3,
-          rating_replayability: 4,
-          rating_visuals: 4,
-          rating_story: 3,
-          rating_overall_generated: 3,
-        },
-      ]
-    },
-    {
-      include: [{model: Rating, as: 'ratings' }]
+    await Game.findOrCreate({
+      where: {
+        game_id: 1911,
+      },
+      defaults: {
+        name: "Path of Exile",
+        game_id: 1911,
+        slug: 'path-of-exile',
+        first_release_date: '2013-10-23 00:00:00+00',
+        cover_image: '//images.igdb.com/igdb/image/upload/t_cover_big/co1n6w.png',
+        ratings: [
+          {
+            game_id: 1911,
+            user_id: userOne[0].id,
+            rating_gameplay: 1,
+            rating_replayability: 1,
+            rating_visuals: 2,
+            rating_story: 1,
+            rating_overall_generated: 1,
+          },
+          {
+            game_id: 1911,
+            user_id: userTwo[0].id,
+            rating_gameplay: 3,
+            rating_replayability: 4,
+            rating_visuals: 4,
+            rating_story: 3,
+            rating_overall_generated: 3,
+          },
+        ]
+      },
+      include: [{ model: Rating, as: 'ratings' }]
     });
 
   } catch (err) {
@@ -148,8 +151,10 @@ export const initDB = async () => {
   try {
     await Game.findOrCreate({
       where: {
-        name: "World of Warcraft",
         game_id: 123,
+      },
+      defaults: {
+        name: "World of Warcraft",
         slug: 'world-of-warcraft',
         first_release_date: '2004-11-23 00:00:00+00',
         cover_image: '//images.igdb.com/igdb/image/upload/t_cover_big/co2l7z.png',
