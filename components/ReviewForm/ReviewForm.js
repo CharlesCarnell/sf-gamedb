@@ -12,12 +12,17 @@ import {
 
 import RatingInput from './RatingInput';
 
-async function postForm(formValues, gameID = 1911) {
+async function postForm(formValues, user_id, gameID) {
+  if (!gameID || !user_id ) {
+    alert('User ID or Game ID not supplied!');
+  }
+
   const post = await fetch(`/api/ratings/game/${gameID}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       ...formValues,
+      user_id,
     })
   })
 }
@@ -53,19 +58,11 @@ export default function ReviewForm({ gameID }) {
     mode: "onChange"
   });
 
-  const onSubmit = data => postForm(data, gameID);
+  const onSubmit = data => postForm(data, session.user.id, gameID);
 
   return (
     <form onSubmit={ handleSubmit(onSubmit) }>
       <Grid2 container spacing={ 2 }>
-        <Grid2 xs={ 12 }>
-          <RatingInput
-            control={ control }
-            name="user_id"
-            label="User ID"
-            options={ ratingOptions }
-          />
-        </Grid2>
         <Grid2 xs={ 12 } md={ 12 }>
           <RatingInput
             control={ control }

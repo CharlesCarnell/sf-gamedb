@@ -49,7 +49,7 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
 
     const existingRating = (await game.getRatings({
       where: {
-        user_id: Number(req.body.user_id),
+        user_id: req.body.user_id,
       }
     }))[0];
 
