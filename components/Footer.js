@@ -15,7 +15,6 @@ export default function Footer() {
       sx={ {
         width: "100%",
         height: "auto",
-        position: "fixed",
         bottom: 0,
         backgroundColor: "primary.dark",
         paddingTop: "1rem",
