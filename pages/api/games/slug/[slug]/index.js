@@ -133,6 +133,7 @@ export default async function handler(req, res) {
         status: 'No games found from IGDB'
       });
     }
+    await recordGameToDB(response.data[0]);
     return res.status(200).json({ 
       ...response.data[0],
       reviews: await returnReviewsByGameID(response.data[0].id),
