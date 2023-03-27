@@ -47,7 +47,7 @@ export default function Home() {
       </Head>
       <Header />
       <Container maxWidth="md">
-        <main>
+        <main style={ { marginBottom: '300px' } }>
           <Grid2 container spacing={ 2 }>
             <GamesList data={ data } />
           </Grid2>

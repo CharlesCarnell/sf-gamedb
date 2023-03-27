@@ -53,7 +53,6 @@ export default function Account({ data }) {
         </Grid2>
         <Grid2 xs={ 8 }>
           <TabPanel value={ activeTab } index={ 0 }>
-            User Profile Form
             <UserProfileForm />
           </TabPanel>
           <TabPanel value={ activeTab } index={ 1 }>

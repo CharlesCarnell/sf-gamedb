@@ -81,9 +81,11 @@ export default function Header() {
                 <IconButton size="large" color="inherit">
                   <Notifications />
                 </IconButton>
-                <IconButton size="large" edge="end" color="inherit">
-                  <AccountCircle />
-                </IconButton>
+                <Link href="/account">
+                  <IconButton size="large" edge="end" color="inherit">
+                    <AccountCircle />
+                  </IconButton>
+                </Link>
               </Box>
               <Box sx={{ display: { xs: 'flex', md: 'none' }}}>
                 <IconButton size="large" color="inherit">

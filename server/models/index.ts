@@ -1,6 +1,5 @@
 import { 
   Sequelize,
-  // DataType
 } from "sequelize-typescript";
 
 import DiscordProvider from 'next-auth/providers/discord';
@@ -53,6 +52,14 @@ const authOptions = {
     }),
   ],
   adapter: sequelizeAdapter,
+  callbacks: {
+    // @ts-ignore
+    async session({ session, token, user }) {
+      // Add the User ID to their JWT
+      session.user.id = user.id;
+      return session;
+    }
+  }
 }
 
 sequelize.addModels([Game, Rating]);
@@ -163,36 +170,4 @@ export const initDB = async () => {
   } catch (err) {
     console.error('error creating Game "path of exile"', err);
   }
-
-  // try {
-  //   await Rating.findOrCreate({
-  //     where: {
-  //       game_id: 1911,
-  //       user_id: 1,
-  //       rating_gameplay: 9,
-  //       rating_replayability: 9,
-  //       rating_visuals: 7,
-  //       rating_story: 7,
-  //       rating_overall_generated: 8,
-  //     },
-  //   });
-  // } catch (err) {
-  //   console.error('error creating Rating "Path of Exile by LiquidFlux"', err);
-  // }
-
-  // try {
-  //   await Rating.findOrCreate({
-  //     where: {
-  //       game_id: 1911,
-  //       user_id: 2,
-  //       rating_gameplay: 8,
-  //       rating_replayability: 8,
-  //       rating_visuals: 6,
-  //       rating_story: 6,
-  //       rating_overall_generated: 7,
-  //     },
-  //   });
-  // } catch (err) {
-  //   console.error('error creating Rating "Path of Exile by LiquidFlux"', err);
-  // }
 };
