@@ -27,6 +27,8 @@ export class Rating extends BaseModel {
 
   // @ForeignKey(() => User)
   // public user_id!: number
+  @Column({ type: DataType.TEXT, allowNull: true })
+  public review_body!: string;
 
   @Column({ type: DataType.INTEGER, allowNull: false })
   public rating_gameplay!: string;

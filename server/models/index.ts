@@ -1,4 +1,4 @@
-import { 
+import {
   Sequelize,
 } from "sequelize-typescript";
 
@@ -18,7 +18,7 @@ interface SequelizeConfig {
   password: string,
 }
 
-const sequelizeConfig : SequelizeConfig = {
+const sequelizeConfig: SequelizeConfig = {
   host: process.env.DB_HOST || '127.0.0.1',
   port: Number(process.env.DB_PORT) || 5432,
   database: process.env.DB_DATABASE || 'public',
@@ -80,7 +80,7 @@ export const initDB = async () => {
   await sequelize.sync({ alter: true });
 
   // @ts-ignore
-  let userOne: any = null; 
+  let userOne: any = null;
   // @ts-ignore
   let userTwo: any = null;
   // @ts-ignore
@@ -136,6 +136,7 @@ export const initDB = async () => {
             rating_visuals: 2,
             rating_story: 1,
             rating_overall_generated: 1,
+            review_body: 'Dummy data',
           },
           {
             game_id: 1911,
@@ -145,6 +146,7 @@ export const initDB = async () => {
             rating_visuals: 4,
             rating_story: 3,
             rating_overall_generated: 3,
+            review_body: 'Dummy data',
           },
         ]
       },
