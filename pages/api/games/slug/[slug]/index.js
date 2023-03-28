@@ -51,7 +51,19 @@ async function returnReviewsByGameID(gameID) {
   }
 
   return await game.getRatings({
-    include: [User]
+    include: [
+      {
+        model: User,
+        attributes: {
+          exclude: [
+            'email',
+            'emailVerified',
+            'createdAt',
+            'updatedAt',
+          ]
+        }
+      }
+    ]
   });
 }
 
