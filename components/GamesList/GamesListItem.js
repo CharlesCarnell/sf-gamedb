@@ -15,7 +15,7 @@ import {
 // first_release_date.setUTCSeconds(gameToRecord.first_release_date);
 // first_release_date.toISOString();
 
-const GamesListItem = ({ cover_image, name, slug, ratings }) => (
+const GamesListItem = ({ average_overall_rating, rating_count, cover_image, name, slug, ratings }) => (
   <Card sx={{ maxWidth: 345 }}>
     <Link href={ `game/${slug}` }>
       <CardMedia
@@ -29,9 +29,10 @@ const GamesListItem = ({ cover_image, name, slug, ratings }) => (
         { name }
       </Typography>
       <div>
-        { ratings && ratings[0] && ratings[0].rating_gameplay &&
-          <Rating value={ ratings[0].rating_gameplay } size="small" />
-        }
+        <Rating value={ average_overall_rating } size="small" />
+      </div>
+      <div>
+        Ratings: { rating_count }
       </div>
     </CardContent>
     <CardActions>
