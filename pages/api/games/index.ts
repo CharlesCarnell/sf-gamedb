@@ -24,7 +24,7 @@ async function returnGamesWithReviews(req: NextApiRequest, res: NextApiResponse)
       model: Game,
     }],
     attributes: [
-      [Sequelize.fn('AVG', Sequelize.cast(Sequelize.col('rating_overall_generated'), 'integer')), 'average_overall_rating'],
+      [Sequelize.fn('AVG', Sequelize.cast(Sequelize.col('rating_overall_generated'), 'float')), 'average_overall_rating'],
       [Sequelize.fn('COUNT', Sequelize.col('rating_overall_generated')), 'rating_count'],
     ]
   }));
