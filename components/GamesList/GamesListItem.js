@@ -25,11 +25,12 @@ const GamesListItem = ({ average_overall_rating, rating_count, cover_image, name
         />
     </Link>
     <CardContent>
-      <Typography gutterBottom variant="h5" component="div">
+      <Typography gutterBottom variant="h5" component="div" sx={{backgroundColor: "primary.lightpurple",
+                opacity: "0.66"}}>
         { name }
       </Typography>
       <div>
-        <Rating value={ average_overall_rating } size="small" />
+        <Rating value={ Number(average_overall_rating).toFixed(1) } size="small" />
       </div>
       <div>
         Ratings: { rating_count }

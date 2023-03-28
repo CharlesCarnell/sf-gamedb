@@ -3,6 +3,8 @@ import { styled } from '@mui/material/styles';
 import {
   Rating,
   Typography,
+  Avatar,
+  avatarClasses
 } from '@mui/material';
 
 import {
@@ -13,12 +15,20 @@ import {
   SentimentSatisfiedAlt,
   SentimentVerySatisfied,
 } from '@mui/icons-material';
+import { purple } from '@mui/material/colors';
 
 const StyledRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
     color: theme.palette.action.disabled,
   },
 }));
+
+function percentageToColor(percentage, maxHue = 120, minHue = 0) {
+  const hue = percentage * 12;
+  return `hsl(${hue}, 100%, 50%)`;
+}
+
+
 
 // const customIcons = {
 //   1: {
@@ -48,7 +58,7 @@ const StyledRating = styled(Rating)(({ theme }) => ({
 //   return <span {...other}>{customIcons[value].icon}</span>;
 // }
 
-const rating_overall_generated = ({ name, value, size = "medium", color = null }) => (
+const rating_overall_generated = ({ name, value, size = "medium" }) => (
   <>
     { name &&
       <>
@@ -58,18 +68,23 @@ const rating_overall_generated = ({ name, value, size = "medium", color = null }
         <br />
       </>
     }
-    <StyledRating
-      precision={ 0.5 }
-      name="highlight-selected-only"
-      // Divide the 1-10 rating by 2 to present in the 5 star layout
-      value={ value / 2 }
-      size={ size }
-      // IconContainerComponent={IconContainer}
-      // getLabelText={(value) => customIcons[value].label}
-      // highlightSelectedOnly
-      readOnly
-      icon={ <Star fontSize="inherit" sx={ color } /> }
-    />
+    <Avatar 
+    sx={{ 
+      width: 66, 
+      height: 66, 
+      backgroundColor: percentageToColor(value), 
+      border: 4, borderColor:'gray', 
+      flexDirection: 'column',
+      justifyContent: 'center',
+      textAlign: 'center', 
+      display: 'flex', 
+      alignItems: 'center', 
+      alignContent: 'center'
+    }} 
+    src={ value } 
+    >
+      {value}
+    </Avatar>
   </>
 );
 

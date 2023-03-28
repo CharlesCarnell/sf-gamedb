@@ -4,6 +4,9 @@ import Grid2 from '@mui/material/Unstable_Grid2';
 
 import {
   Typography,
+  Card,
+  CardMedia,
+  CardContent,
 } from '@mui/material';
 
 import {
@@ -17,37 +20,49 @@ export default function GameDetail({ data }) {
   return (
     <div>
       <Grid2 container spacing={ 2 }>
-        <Grid2 xs={ 12 }>
-          <div style={{ float: 'left' }}>
-            <Typography variant="h5" gutterBottom>
-              { data?.name }
-            </Typography>
-          </div>
-          <div style={{ float: 'right' }}>
-            <Rating value={ data?.ratings.average.overall } size="large" />
-            {/* <div>
-              IGDB Rating - { data?.rating }
-            </div>
-            <div>
-              SFGDB Rating - { data?.ratings.average.overall }
-            </div>
-            <div>
-              SFGDB Rating Count - { data?.ratings.count }
-            </div> */}
-          </div>
+        <Grid2 xs={ 12 } spacing={4}>
+          
+          {/* <div >
+            <h3>SFGDB APPROVED RATING</h3>
+            <Rating value={ data?.ratings.average.overall } size="large"  />
+          </div> */}
         </Grid2>
         <Grid2 xs={ 4 }>
-          <img src={ data?.cover?.url.replace('thumb', '720p') } alt={ data?.name } style={{ width: '100%' }} />
+          <Card sx={{ maxWidth: 345, position:'relative' }}>
+            <CardMedia
+              sx={{ height: 400 }}
+              image={ data?.cover?.url.replace('thumb', '720p') } alt={ data?.name } style={{ width: '100%' }}
+              title={data?.name}
+            />
+            <CardContent sx={{
+                position: "absolute",
+                top: "80%",
+                width: "100%",
+                textAlign: "center",
+                color: "white",
+                backgroundColor: "primary.lightpurple",
+                opacity: "0.66",
+              }}
+            >
+              <Typography variant={'h5'}>               
+                { data?.name }
+              </Typography>
+            </CardContent>
+          </Card>
         </Grid2>
+              
         <Grid2 xs={ 8 }>
           <Grid2 container spacing={ 2 }>
+            <Grid2 xs={ 12 }>
+              <hr />
+              <Typography variant="h6">Average SFGDB Approved Ratings</Typography>
+              <CategoryRatings ratings={ data.ratings.average } />
+              <hr />
+            </Grid2>
             <Grid2 xs={ 12 }>
               <Typography variant="body1" gutterBottom>
                 { data?.summary }
               </Typography>
-            </Grid2>
-            <Grid2 xs={ 12 }>
-              <CategoryRatings ratings={ data.ratings.average } />
             </Grid2>
             <Grid2 xs={ 12 }>
               <RecentReviews reviews={ data.reviews } />
