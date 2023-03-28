@@ -24,9 +24,9 @@ import {
   Notifications,
 } from '@mui/icons-material';
 
-import {
-  Search,
-} from '../components'
+
+import AccountMenu from './AccountMenu';
+import Search from './Search';
 
 const StyledSearch = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -44,50 +44,31 @@ export default function Header() {
   const { data: session } = useSession();
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ mb: '40px' }}>
+      <Box sx={ { flexGrow: 1 } }>
+        <AppBar position="static" sx={ { mb: '40px' } }>
           <Container maxWidth="md">
             <Toolbar>
               <Link href="/">
-                <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' }}}>
+                <Typography variant="h6" noWrap component="div" sx={ { display: { xs: 'none', sm: 'block' } } }>
                   SFGDB
                 </Typography>
               </Link>
               <StyledSearch>
                 <Search />
               </StyledSearch>
-              <Box sx={{ flexGrow: 1 }} />
+              <Box sx={ { flexGrow: 1 } } />
               <Box sx={ { display: { xs: 'none', md: 'flex' } } }>
-                { session ?
-                  <>
-                    <Stack spacing={ 2 } direction="row">
-                      <span onClick={ () => console.log('session', session) }>Session Log</span>
-                      <span onClick={ () => signOut() }>Logout</span>
-                    </Stack>
-                  </>
-                  :
-                  <>
-                    <Stack spacing={ 2 } direction="row">
-                      <span onClick={ () => signIn() }>Login</span>
-                      <span>Register</span>
-                    </Stack>
-                  </>
-                }
-                <IconButton size="large" color="inherit">
+                {/* <IconButton size="large" color="inherit">
                   <Badge badgeContent={ 4 } color="error">
                     <Mail />
                   </Badge>
                 </IconButton>
                 <IconButton size="large" color="inherit">
                   <Notifications />
-                </IconButton>
-                <Link href="/account">
-                  <IconButton size="large" edge="end" color="inherit">
-                    <AccountCircle />
-                  </IconButton>
-                </Link>
+                </IconButton> */}
+                <AccountMenu />
               </Box>
-              <Box sx={{ display: { xs: 'flex', md: 'none' }}}>
+              <Box sx={ { display: { xs: 'flex', md: 'none' } } }>
                 <IconButton size="large" color="inherit">
                   <More />
                 </IconButton>
