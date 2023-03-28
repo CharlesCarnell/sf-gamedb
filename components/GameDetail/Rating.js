@@ -60,31 +60,31 @@ function percentageToColor(percentage, maxHue = 120, minHue = 0) {
 
 const rating_overall_generated = ({ name, value, size = "medium" }) => (
   <>
-    { name &&
-      <>
-        <Typography variant="overline" gutterBottom>
-          { name }
-        </Typography>
-        <br />
-      </>
-    }
-    <Avatar 
-    sx={{ 
-      width: 66, 
-      height: 66, 
-      backgroundColor: percentageToColor(value), 
-      border: 4, borderColor:'gray', 
-      flexDirection: 'column',
-      justifyContent: 'center',
-      textAlign: 'center', 
-      display: 'flex', 
-      alignItems: 'center', 
-      alignContent: 'center'
-    }} 
-    src={ value } 
-    >
-      {value}
-    </Avatar>
+    <div style={{
+      display: 'flex',
+      'flex-direction': 'column',
+      'align-items': 'center',
+    }}>
+      {name &&
+        <>
+          <Typography variant="overline" gutterBottom>
+            {name}
+          </Typography>
+        </>
+      }
+      <Avatar
+        sx={{
+          width: 66,
+          height: 66,
+          backgroundColor: percentageToColor(value),
+          border: 4,
+          borderColor: 'gray',
+        }}
+        src={value}
+      >
+        {value}
+      </Avatar>
+  </div>
   </>
 );
 

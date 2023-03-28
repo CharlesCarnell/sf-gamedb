@@ -36,12 +36,12 @@ export default function GameDetail({ data }) {
             />
             <CardContent sx={{
                 position: "absolute",
-                top: "80%",
+                bottom: "0",
                 width: "100%",
                 textAlign: "center",
                 color: "white",
-                backgroundColor: "primary.lightpurple",
-                opacity: "0.66",
+                backgroundColor: "#9e61be75",
+                
               }}
             >
               <Typography variant={'h5'}>               
@@ -49,6 +49,7 @@ export default function GameDetail({ data }) {
               </Typography>
             </CardContent>
           </Card>
+          <Rating name="Overall" value={ data.ratings.average.overall } />
         </Grid2>
               
         <Grid2 xs={ 8 }>

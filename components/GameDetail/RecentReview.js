@@ -27,50 +27,29 @@ export default function GameDetailRecentReview({ review }){
               <hr />
               <Rating />
               <Typography>
-                {review.user.name}
+                { review.user.name }
               </Typography>
             </Grid2>
             <Grid2 xs={10}>
               <Typography>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </Typography>
+                { review.review_body }
+                {/* Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. */}
+              </Typography>
             </Grid2>
-           </Grid2>
-                
-                <Grid2 container spacing={2} xs={12} >
-                  <Grid2 xs={3}>
-                    <Rating name={ 'gameplay' } value={ review.rating_gameplay } size="small" color={ { color: pink[500] } } />
-                  </Grid2>
-                  <Grid2 xs={3}>
-                    <Rating name={ 'replayability' } value={ review.rating_replayability } size="small" color={ { color: indigo[500] } } />
-                  </Grid2>
-                  <Grid2 xs={3}>
-                    <Rating name={ 'visuals' } value={ review.rating_visuals } size="small" color={ { color: cyan[500] } } />
-                  </Grid2>
-                  <Grid2 xs={3}>
-                    <Rating name={ 'story' } value={ review.rating_story } size="small" color={ { color: teal[500] } } />
-                  </Grid2> 
-              </Grid2>
-        </Grid2>
-        <Grid2 xs={ 12 }>
-          <Typography variant="body2" gutterBottom>
-            { review.review_body }
-          </Typography>
-        </Grid2>
-        <Grid2 xs={ 12 }>
-          <Grid2 container spacing={ 2 }>
-            <Grid2 xs={ 12 } md={ 6 }>
+          </Grid2>
+          <Grid2 container spacing={2} xs={12} >
+            <Grid2 xs={3}>
               <Rating name={ 'gameplay' } value={ review.rating_gameplay } size="small" color={ { color: pink[500] } } />
             </Grid2>
-            <Grid2 xs={ 12 } md={ 6 }>
+            <Grid2 xs={3}>
               <Rating name={ 'replayability' } value={ review.rating_replayability } size="small" color={ { color: indigo[500] } } />
             </Grid2>
-            <Grid2 xs={ 12 } md={ 6 }>
+            <Grid2 xs={3}>
               <Rating name={ 'visuals' } value={ review.rating_visuals } size="small" color={ { color: cyan[500] } } />
             </Grid2>
-            <Grid2 xs={ 12 } md={ 6 }>
+            <Grid2 xs={3}>
               <Rating name={ 'story' } value={ review.rating_story } size="small" color={ { color: teal[500] } } />
-            </Grid2>
+            </Grid2> 
           </Grid2>
         </Grid2>
       </Grid2>
