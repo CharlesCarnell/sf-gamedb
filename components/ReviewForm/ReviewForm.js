@@ -1,13 +1,15 @@
 
 
 import {
+  Controller,
   useForm,
 } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
 
 import Grid2 from '@mui/material/Unstable_Grid2';
 import {
-  Alert
+  Alert,
+  TextField,
 } from '@mui/material';
 
 import RatingInput from './RatingInput';
@@ -63,6 +65,15 @@ export default function ReviewForm({ gameID }) {
   return (
     <form onSubmit={ handleSubmit(onSubmit) }>
       <Grid2 container spacing={ 2 }>
+        <Grid2 xs={ 12 } md={ 12 }>
+          <Controller
+            name="review_body"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField onChange={onChange} value={value} label="Leave a Review" multiline rows={6} fullWidth />
+            )}
+          />
+        </Grid2>
         <Grid2 xs={ 12 } md={ 12 }>
           <RatingInput
             control={ control }
