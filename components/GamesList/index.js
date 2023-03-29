@@ -3,16 +3,17 @@
 import Grid2 from '@mui/material/Unstable_Grid2';
 
 import {
+  Box,
   Typography,
 } from '@mui/material';
 
 import GamesListItem from '../../components/GamesList/GamesListItem';
 
-const GamesList = ({ data }) => (
+const GamesList = ({ data, title }) => (
   <>
     <Grid2 xs={ 12 }>
       <Typography variant="overline" gutterBottom>
-        Recently Reviewed
+        { title }
       </Typography>
     </Grid2>
     { data?.map((game, i) => {

@@ -13,7 +13,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     include: [Game, User]
   });
 
-  await console.log('rating', rating);
-
   return res.status(200).json({ ...rating.toJSON() });
 }
