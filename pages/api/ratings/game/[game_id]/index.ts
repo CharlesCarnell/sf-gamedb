@@ -45,8 +45,6 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
       },
     });
 
-    console.log('game', req.query.game_id, game);
-
     const existingRating = (await game.getRatings({
       where: {
         user_id: req.body.user_id,
@@ -92,8 +90,6 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
         rating_overall_generated: averageRating,
         game_id: req.query.game_id,
       });
-      // const newSetRating = await game.setRatings([newRating]);
-      // console.log('newSetRating', newSetRating);
 
       return res.status(200).json({
         ...newRating?.dataValues,

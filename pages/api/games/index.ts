@@ -3,6 +3,7 @@
 
 import { NextApiRequest, NextApiResponse } from "next";
 
+const querystringConverter = require('sequelize-querystring-converter');
 const { Op } = require("sequelize");
 import { Sequelize } from "sequelize-typescript";
 
@@ -16,7 +17,9 @@ import {
   User,
 } from "@server/models";
 
-async function returnGamesWithReviews(req: NextApiRequest, res: NextApiResponse) {  
+async function returnGamesWithReviews(req: NextApiRequest, res: NextApiResponse) {
+
+  const queries = querystringConverter.convert({ query: req.query });
 
   return res.status(200).json(await Rating.findAll({
     group: ['Rating.game_id', 'game.game_id'],
@@ -26,19 +29,13 @@ async function returnGamesWithReviews(req: NextApiRequest, res: NextApiResponse)
     attributes: [
       [Sequelize.fn('AVG', Sequelize.cast(Sequelize.col('rating_overall_generated'), 'float')), 'average_overall_rating'],
       [Sequelize.fn('COUNT', Sequelize.col('rating_overall_generated')), 'rating_count'],
-    ]
+      [Sequelize.fn('MAX', Sequelize.cast(Sequelize.col('updatedAt'), 'timestamp')), 'most_recent_rating'],
+    ],
+    ...queries,
   }));
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 
-  if ( req.query.reviews ) {
-    return returnGamesWithReviews(req, res);
-  }
-
-  return res.status(200).json(await GameRepository.findOne({
-    where: { game_id: 1911 },
-    include: [{ model: Rating, as: 'reviews'}],
-    // raw: true,
-  }));
+  return returnGamesWithReviews(req, res);
 }
