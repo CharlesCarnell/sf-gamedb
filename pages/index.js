@@ -4,10 +4,7 @@ import styles from '../styles/Home.module.css';
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+
 
 import Grid2 from '@mui/material/Unstable_Grid2';
 

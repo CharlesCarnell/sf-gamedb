@@ -45,7 +45,7 @@ export default function Home() {
     return (
       <div>
         <Head>
-          <title>SFGDB </title>
+          <title>SFGDB</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header />

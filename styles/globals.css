@@ -1,9 +1,8 @@
 html,
 body {
   padding: 0;
-  margin: 0;
-  font-family: "Space Grotesk", Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Questrial', sans-serif !important;
+  font-weight: 400;
 }
 
 a {
@@ -22,9 +21,11 @@ img {
 
 h1,
 h2,
-p,
-ul {
-  margin: 0;
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 ul {
@@ -35,4 +36,69 @@ ul {
 button {
   padding: 0.5rem 1rem;
   font-weight: bold;
+}
+
+.imageOverlay {
+  height: 250px;
+  width: 100%;
+
+
+}
+
+.imageOverlay::before {
+  background: #b8e1fc64;
+  background: radial-gradient(circle farthest-corner at top center, rgba(97, 190, 253, 0) 0%, rgb(18, 18, 18, 100) 70%);
+  content: "";
+  display: block;
+  height: 300px;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 80px;
+  transform: translateX(-50%);
+  width: 854px;
+  z-index: 0;
+}
+
+.imageOverlay::after {
+  background: #1283cf20;
+  background: linear-gradient(to bottom, #121fcf0a 62%, #121212 100%);
+  content: "";
+  display: block;
+  height: 300px;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 80px;
+  transform: translateX(-50%);
+  width: 854px;
+  z-index: 0;
+}
+
+.gameTitle {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 30px;
+}
+
+.gameTitleText {
+  position: absolute;
+  top: -50px;
+  font-size: 3rem;
+  /* font-family: 'Space Grotesk'; */
+}
+
+.mainContent {
+  position: relative;
+}
+
+.mainContentWrapper {
+  position: absolute;
+  top: -10vh;
+}
+
+.subHeading {
+  font-size: 1.5rem;
+  text-align: right;
 }

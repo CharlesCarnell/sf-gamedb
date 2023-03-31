@@ -45,7 +45,7 @@ export default function Header() {
   return (
     <>
       <Box sx={ { flexGrow: 1 } }>
-        <AppBar position="static" sx={ { mb: '40px' } }>
+        <AppBar position="static" sx={ { } }>
           <Container maxWidth="md">
             <Toolbar>
               <Link href="/">

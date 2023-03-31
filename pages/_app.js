@@ -22,7 +22,11 @@ export default function MyApp(props) {
     <SessionProvider session={ session }>
       <CacheProvider value={emotionCache}>
         <Head>
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Space+Grotesk:wght@400;700&display=swap');
+        </style>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
+          
         </Head>
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

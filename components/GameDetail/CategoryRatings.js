@@ -12,17 +12,23 @@ import Rating from './Rating';
 const CategoryRatings = ({ ratings }) => (
   <>
     <Grid2 container spacing={ 2 }>
-      <Grid2 xs={3}>
-        <Rating name={ 'gameplay' } value={ ratings.gameplay } size="small" color={ { color: pink[500] } } />
+      <Grid2 xs={2}>
+        <Rating name={ 'gameplay' } value={ ratings.gameplay } size="small"  />
       </Grid2>
-      <Grid2 xs={3}>
-        <Rating name={ 'replayability' } value={ ratings.replayability } size="small" color={ { color: indigo[500] } } />
+      <Grid2 xs={2}>
+        <Rating name={ 'replayability' } value={ ratings.replayability } size="small"  />
       </Grid2>
-      <Grid2 xs={3}>
-        <Rating name={ 'visuals' } value={ ratings.visuals } size="small" color={ { color: cyan[500] } } />
+      <Grid2 xs={2}>
+        <Rating name={ 'visuals' } value={ ratings.visuals } size="small"  />
       </Grid2>
-      <Grid2 xs={3}>
-        <Rating name={ 'story' } value={ ratings.story } size="small" color={ { color: teal[500] } } />
+      <Grid2 xs={2}>
+        <Rating name={ 'story' } value={ ratings.story } size="small"  />
+      </Grid2>
+      <Grid2 xs={2}>
+        <Rating name={ 'soundtrack' } value={ 'TODO' } size="small"  />
+      </Grid2>
+      <Grid2 xs={2}>
+        <Rating name={ 'overall' } value={ 'TODO' } size="small"  />
       </Grid2>
     </Grid2>
   </>

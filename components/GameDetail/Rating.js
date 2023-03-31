@@ -62,12 +62,13 @@ const rating_overall_generated = ({ name, value, size = "medium" }) => (
   <>
     <div style={{
       display: 'flex',
-      'flex-direction': 'column',
-      'align-items': 'center',
+      flexDirection: 'column',
+      alignItems: 'center',
+     
     }}>
       {name &&
         <>
-          <Typography variant="overline" gutterBottom>
+          <Typography variant="caption" gutterBottom>
             {name}
           </Typography>
         </>
@@ -77,8 +78,8 @@ const rating_overall_generated = ({ name, value, size = "medium" }) => (
           width: 66,
           height: 66,
           backgroundColor: percentageToColor(value),
-          border: 4,
-          borderColor: 'gray',
+          
+          boxShadow: ' inset 0 0px 0px 1px black, 0 0px 0px 2px white ',
         }}
         src={value}
       >
